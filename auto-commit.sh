@@ -42,6 +42,9 @@ EOF
 # Git operations
 git add -A
 git commit -m "daily: $DATE" --quiet
-git push origin main 2>&1
-
-echo "[$DATE $TIME] Commit pushed successfully"
+if git push origin main 2>&1; then
+  echo "[$DATE $TIME] Commit pushed successfully"
+else
+  echo "[$DATE $TIME] ERROR: git push failed — commit is local only" >&2
+  exit 1
+fi
